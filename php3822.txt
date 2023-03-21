@@ -1,0 +1,6 @@
+345882865
+[ 345882865 ] IRR 
+Numer konta za krótki 
+80?5?5982 ERR 
+Numer konta za długi 
+138802525 [ 139802525, 138002525, 138882525 ] AMB 

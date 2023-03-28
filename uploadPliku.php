@@ -1,4 +1,11 @@
 <?php
+var_dump($_REQUEST);
+$a = $_REQUEST['test'];
+$b = $_GET['test'];
+if($_REQUEST) {
+    echo 12;
+    echo $b;
+}
 require "wczytaniePlikuHandler.php";
 require "raportHTMLGenerator.php";
 require_once('_liczba.php');
@@ -14,7 +21,7 @@ $conn = new PDO($dsn);
 $czyJestNazwaPliku = empty($_GET['nazwaPliku']);
 if (!$czyJestNazwaPliku) {
     $nazwaPliku = $_GET['nazwaPliku'];
-    pobierzPliku(SCIEZKADOFOLDERU, $nazwaPliku);
+    pobierzPlik(SCIEZKADOFOLDERU, $nazwaPliku);
     exit();
 }
 
@@ -28,7 +35,7 @@ if (!$tmp) {
 $wyswietlaczWynikowNaStronie = new RaportHTMLGenerator($conn);
 echo $wyswietlaczWynikowNaStronie->zwrocRaportOcerowania();
 
-function pobierzPliku(string $sciezkaDoFolderu, string $nazwaPliku)
+function pobierzPlik(string $sciezkaDoFolderu, string $nazwaPliku)
 {
     $sciezkaBezwzgledna =  $sciezkaDoFolderu . "\\" . $nazwaPliku;
     header('Content-type: text/plain');

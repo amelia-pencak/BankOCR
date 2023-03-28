@@ -4,7 +4,7 @@
         <title>Bank OCR</title>
     </head>
     <body>
-    <form action="stronaPierwsza.php" enctype="multipart/form-data" method="post" class="form-example">
+    <form action="stronaPierwsza.php?test=wczytaniePliku" enctype="multipart/form-data" method="post" class="form-example">
     <div class="form-example">
         <label for="name">Wybierz plik z numerami kont: </label>
     </div>
@@ -16,6 +16,6 @@
     </body>
 </html>
 <?php
-    require_once("uploadPliku.php");
+    require_once("index.php");
     echo "wynik obliczony <br/>";
    

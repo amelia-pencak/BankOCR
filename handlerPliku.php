@@ -1,5 +1,6 @@
 <?php
 require "config.php";
+require "stronaPierwsza.php"; 
 require_once('_liczba.php');
 
 class handlerPliku {
@@ -19,6 +20,7 @@ class handlerPliku {
                 $filename = $this->utworzNowyPlik($i, $this->sciezkaDoFolderu);
                 $this->zapiszWynikDoPliku($filename, $this->sciezkaDoFolderu);
                 $this->zapiszSciezkeDoPlikuWynikowego($filename);
+                $this->wyswietlanie();
             }
         } else {
             echo "Wprowadź plik wejsciowy! </br>";
@@ -77,6 +79,8 @@ class handlerPliku {
     }
 
     public function wyswietlanie() {
+        $wyswietlaczStronyPoczatkowej = new stronaPierwsza();
+        $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
         echo $this->zwrocRaportOcerowania();
     }
 
@@ -91,7 +95,7 @@ class handlerPliku {
         try {
             foreach($listaWynikowOcerowania as $row){
                 $nazwa = $row['nazwaPliku'];
-                $wyswietlLink = '<a href="index.php?test=pobierzPlik&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
+                $wyswietlLink = '<a href="index.php?akcja=pobierzPlik&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
                 $listaWynikow .= "<br/>";
                 $listaWynikow .= $row['dataWgrania']. ' | '. $wyswietlLink . "<br/>";
             }

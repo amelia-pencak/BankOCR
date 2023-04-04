@@ -16,6 +16,6 @@
     </body>
 </html>
 <?php
-    require_once("index.php");
+    require_once("index.php"); //
     echo "wynik obliczony <br/>";
    

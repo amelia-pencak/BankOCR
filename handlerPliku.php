@@ -23,7 +23,6 @@ class handlerPliku {
         } else {
             echo "Wprowadź plik wejsciowy! </br>";
         }
-        $this->wyswietlanie();
     }
 
     private function utworzNowyPlik($numerPliku, $sciezkaDoFolderu) {
@@ -92,7 +91,7 @@ class handlerPliku {
         try {
             foreach($listaWynikowOcerowania as $row){
                 $nazwa = $row['nazwaPliku'];
-                $wyswietlLink = '<a href="stronaPierwsza.php?test=&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
+                $wyswietlLink = '<a href="stronaPierwsza.php?test=pobierzPlik&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
                 $listaWynikow .= "<br/>";
                 $listaWynikow .= $row['dataWgrania']. ' | '. $wyswietlLink . "<br/>";
             }
@@ -113,7 +112,6 @@ class handlerPliku {
         header('Content-Disposition: attachment; filename="' . $nazwaPliku . '"');
         readfile($sciezkaBezwzgledna);
         }
-        $this->wyswietlanie();
     }
     
 }

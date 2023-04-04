@@ -16,32 +16,22 @@ $conn = new PDO($dsn);
 $handler = new handlerPliku($conn, SCIEZKADOFOLDERU);
 $wyswietlaczStronyPoczatkowej = new stronaPierwsza();
 
-if($akcja == 'pobierzPlik' ){
-    $handler->pobierzPlik();
-}
-else {
-    if($akcja = 'wczytaniePliku') {
+switch ($akcja) {
+    case 'wczytaniePliku':
         $handler->wczytaniePliku();
-    }
-    $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
-    $handler->wyswietlanie();
+        $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
+        $handler->wyswietlanie();
+        break;
+    
+    case 'pobierzPlik':
+        $handler->pobierzPlik();
+        break;
+    
+    default:
+        $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
+        $handler->wyswietlanie();
+        break;
 }
-// switch ($akcja) {
-//     case 'wczytaniePliku':
-//         $handler->wczytaniePliku();
-//         $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
-//         $handler->wyswietlanie();
-//         break;
-    
-//     case 'pobierzPlik':
-//         $handler->pobierzPlik();
-//         break;
-    
-//     default:
-//         $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
-//         $handler->wyswietlanie();
-//         break;
-// }
 
 
 class stronaPierwsza {

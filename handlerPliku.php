@@ -40,7 +40,7 @@ class handlerPliku {
             }
             $ocr = new OCR();
             $wyniki = $ocr->zmianaNumeruAsciiZTekstu($numeryKont);
-            $zapisanieDoPliku = file_put_contents($filename, $wyniki);
+            $zapisanieDoPliku = file_put_contents("../".$filename, $wyniki); // ?
             if ($zapisanieDoPliku == false) {
                 throw new Exception('Błąd zapisu do pliku.');
             }
@@ -91,7 +91,7 @@ class handlerPliku {
         try {
             foreach($listaWynikowOcerowania as $row){
                 $nazwa = $row['nazwaPliku'];
-                $wyswietlLink = '<a href="stronaPierwsza.php?test=pobierzPlik&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
+                $wyswietlLink = '<a href="index.php?test=pobierzPlik&nazwaPliku='.$nazwa.'" name="pobieraniePliku"> '.$nazwa .'</a>';
                 $listaWynikow .= "<br/>";
                 $listaWynikow .= $row['dataWgrania']. ' | '. $wyswietlLink . "<br/>";
             }

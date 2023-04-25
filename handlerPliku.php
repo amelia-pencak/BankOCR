@@ -1,9 +1,10 @@
 <?php
-require "config.php";
-require "stronaPierwsza.php"; 
-require_once('_liczba.php');
+// require "stronaPierwsza.php"; 
+// require_once('_liczba.php');
+use MyNamespace\OCR;
 
-class handlerPliku {
+
+class HandlerPliku {
     private $conn;
     private $sciezkaDoFolderu;
     
@@ -12,25 +13,27 @@ class handlerPliku {
         $this->conn = $conn;
     }
 
-    public function wczytaniePliku() {
-        $tmp = empty($_FILES['plikDanych']['name'][0]);
+    public function wczytaniePliku(Request $request) {
+        $pliki = $request->zwrocPlik('plikDanych','name');
+        $tmpNazwaPliku = $request->zwrocTabliceTmpNazwPliku('plikDanych'); //tablica
+        $tmp = empty($pliki[0]);
         if (!$tmp) {
-            $liczbaPlikow = count(($_FILES['plikDanych']['name']));
+            $liczbaPlikow = count($pliki);
             for ($i = 0; $i < $liczbaPlikow; $i++) {
-                $filename = $this->utworzNowyPlik($i, $this->sciezkaDoFolderu);
+                $filename = $this->utworzNowyPlik($i, $this->sciezkaDoFolderu,$tmpNazwaPliku);
                 $this->zapiszWynikDoPliku($filename, $this->sciezkaDoFolderu);
                 $this->zapiszSciezkeDoPlikuWynikowego($filename);
-                $this->wyswietlanie();
             }
         } else {
             echo "Wprowadź plik wejsciowy! </br>";
         }
+        $this->wyswietlanie();
     }
 
-    private function utworzNowyPlik($numerPliku, $sciezkaDoFolderu) {
-        $filename = basename($_FILES['plikDanych']['tmp_name'][$numerPliku], ".tmp") . ".txt";
+    private function utworzNowyPlik($numerPliku, $sciezkaDoFolderu, $tmpNazwaPliku) {
+        $filename = basename($tmpNazwaPliku[$numerPliku], ".tmp") . ".txt";
         $newFile = $sciezkaDoFolderu . "/" . $filename;
-        move_uploaded_file($_FILES['plikDanych']['tmp_name'][$numerPliku], $newFile);
+        move_uploaded_file($tmpNazwaPliku[$numerPliku], $newFile);
         return $filename;
     }
 
@@ -80,7 +83,7 @@ class handlerPliku {
 
     public function wyswietlanie() {
         $wyswietlaczStronyPoczatkowej = new stronaPierwsza();
-        $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
+        echo $wyswietlaczStronyPoczatkowej->wyswietlStronePoczatkowa();
         echo $this->zwrocRaportOcerowania();
     }
 
@@ -105,12 +108,13 @@ class handlerPliku {
         }
     }
 
-    function pobierzPlik()
+    function pobierzPlik(Request $request)
     {
+        $nazwaPlikuDoPobrania = $request->zwrocParametrGet('nazwaPliku');
         $this->sciezkaDoFolderu = SCIEZKADOFOLDERU;
-        $czyJestNazwaPliku = empty($_GET['nazwaPliku']);
+        $czyJestNazwaPliku = empty($nazwaPlikuDoPobrania);
         if (!$czyJestNazwaPliku) {
-        $nazwaPliku = $_GET['nazwaPliku'];
+        $nazwaPliku = $nazwaPlikuDoPobrania;
         $sciezkaBezwzgledna =  $this->sciezkaDoFolderu . "\\" . $nazwaPliku;
         header('Content-type: text/plain');
         header('Content-Disposition: attachment; filename="' . $nazwaPliku . '"');

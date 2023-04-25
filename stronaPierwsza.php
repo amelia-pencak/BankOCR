@@ -1,8 +1,8 @@
 <?php
 
-class stronaPierwsza {
+class StronaPierwsza {
     function wyswietlStronePoczatkowa() {
-        echo '<!DOCTYPE html>
+        return '<!DOCTYPE html>
         <html>
             <head>
                 <title>Bank OCR</title>

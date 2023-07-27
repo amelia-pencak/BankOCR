@@ -3,7 +3,6 @@
 // require_once('_liczba.php');
 use MyNamespace\OCR;
 
-
 class HandlerPliku {
     private $conn;
     private $sciezkaDoFolderu;
